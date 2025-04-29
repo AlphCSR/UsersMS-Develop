@@ -85,6 +85,7 @@ namespace UsersMS.Infrastructure.Repositories
                 throw new Exception($"Failed to delete user '{username}'. Response: {error}");
             }
         }
+
         public async Task DisableUserAsync(string username, string token)
         {
             // Buscar el usuario por username
@@ -120,7 +121,6 @@ namespace UsersMS.Infrastructure.Repositories
                 throw new Exception($"Failed to disable user '{username}' in Keycloak. Response: {error}");
             }
         }
-
 
         public async Task UpdateUserAsync(string username, object updatePayload, string token)
         {
@@ -159,13 +159,6 @@ namespace UsersMS.Infrastructure.Repositories
                 throw new Exception($"Failed to update user '{username}' in Keycloak. Response: {error}");
             }
         }
-
-
-
-
-
-
-
 
         public async Task<JsonElement?> GetUserAsync(string username, string token)
         {

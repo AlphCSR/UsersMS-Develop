@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using UsersMS.Commons.Enums;
 
-namespace UsersMS.Domain.Entities
+namespace UsersMS.Commons.Dtos.Request
 {
-    public class User
+    public record UpdateAdministratorDto
     {
+        public Guid AdministratorId { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? Id { get; set; }
@@ -19,22 +20,5 @@ namespace UsersMS.Domain.Entities
         public string? Address { get; set; }
         public UserRole Role { get; set; }
         public UserState State { get; set; }
-
-        public User
-            (String email, String password, String cedula, String name, String lastname, String phone, String address, UserRole role, UserState state)
-        {
-            Email = email;
-            Password = password;
-            Id = cedula;
-            Name = name;
-            LastName = lastname;
-            Phone = phone;
-            Address = address;
-            Role = role;
-            State = state;
-        }
-        public User() { }
-
-
     }
 }

@@ -17,12 +17,12 @@ namespace UsersMS.Infrastructure.Service
             private readonly IConfiguration configuration;
             private static int VerificationCode;
             Random random = new Random();
-            private readonly IAdministradorRepository _administradorRepository;
-            private readonly IProveedorRepository _proveedorRepository;
-            private readonly IOperadorRepository _operadorRepository;
-            private readonly IConductorRepository _conductorRepository;
+            private readonly IAdministratorRepository _administradorRepository;
+            private readonly ITechnicalSupportRepository _proveedorRepository;
+            private readonly IBidderRepository _operadorRepository;
+            private readonly IAuctioneerRepository _conductorRepository;
 
-            public EmailService(IConfiguration configuration, IAdministradorRepository administradorRepository, IProveedorRepository proveedorRepository, IOperadorRepository operadorRepository, IConductorRepository conductorRepository)
+            public EmailService(IConfiguration configuration, IAdministratorRepository administradorRepository, ITechnicalSupportRepository proveedorRepository, IBidderRepository operadorRepository, IAuctioneerRepository conductorRepository)
             {
                 this.configuration = configuration;
                 this._administradorRepository = administradorRepository;

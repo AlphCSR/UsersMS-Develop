@@ -12,12 +12,10 @@ namespace UsersMS.Core.DataBase
     {
         DbContext DbContext { get; }
 
-        //DbSet<User> Users { get; set; }
-        DbSet<Administrador> Administradores { get; set; }
-        DbSet<Operador> Operadores { get; set; }
-
-        DbSet<Proveedor> Proveedores { get; set; }
-        DbSet<Conductor> Conductores { get; set; }
+        DbSet<Administrator> Administrators { get; set; }
+        DbSet<Bidder> Bidders { get; set; }
+        DbSet<TechnicalSupport> TechnicalSupports { get; set; }
+        DbSet<Auctioneer> Auctioneers { get; set; }
 
         IDbContextTransactionProxy BeginTransaction();
 

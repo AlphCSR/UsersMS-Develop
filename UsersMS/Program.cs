@@ -12,6 +12,7 @@ using UsersMS.Infrastructure.DataBase;
 using UsersMS.Infrastructure.Repositories;
 using UsersMS.Infrastructure.Service;
 using UsersMS.Infrastructure.Setings;
+using System.Configuration;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,52 +43,50 @@ builder.Services.AddHttpClient(); // Registrar HttpClient para manejar solicitud
 
 
 //Handlers Conductores
-builder.Services.AddMediatR(typeof(CreateConductorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(GetConductorQueryHandler).Assembly);
-builder.Services.AddMediatR(typeof(DeleteConductorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(UpdateConductorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(GetAllConductoresQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(CreateAuctioneerCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetTechnicalSupportQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(DeleteAuctioneerCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(UpdateAuctioneerCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetAllBiddersQueryHandler).Assembly);
 
 //Handlers Proveedores
-builder.Services.AddMediatR(typeof(CreateProveedorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(GetProveedorQueryHandler).Assembly);
-builder.Services.AddMediatR(typeof(DeleteProveedorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(UpdateProveedorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(GetAllProveedoresQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(CreateTechnicalSupportCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetAuctioneersQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(DeleteTechnicalSupportCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(UpdateTechnicalSupportCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetAllTechnicalSupportsQueryHandler).Assembly);
 
 //Handlers Operadores
-builder.Services.AddMediatR(typeof(CreateOperadorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(DeleteOperadorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(UpdateOperadorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(GetOperadorQueryHandler).Assembly);
-builder.Services.AddMediatR(typeof(GetAllOperadoresQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(CreateBidderCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(DeleteBidderCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(UpdateBidderCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetBidderQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetAllAuctioneersQueryHandler).Assembly);
 
 //Handlers Administradores
-builder.Services.AddMediatR(typeof(CreateAdministradorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(DeleteAdministradorCommandHandler).Assembly);
-builder.Services.AddMediatR(typeof(GetAdministradorQueryHandler).Assembly);
-builder.Services.AddMediatR(typeof(GetAllAdministradoresQueryHandler).Assembly);
-builder.Services.AddMediatR(typeof(UpdateAdministradorCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(CreateAdministratorCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(DeleteAdministratorCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetAdministratorQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetAllAdministratorsQueryHandler).Assembly);
+builder.Services.AddMediatR(typeof(UpdateAdministratorCommandHandler).Assembly);
 
 
 
 //Registrando los servicios de dbContext y repo para los usuarios
 builder.Services.AddTransient<IUsersDbContext, UsersDbContext>();
-builder.Services.AddTransient<IAdministradorRepository, AdministradorRepository>();
+builder.Services.AddTransient<IAdministratorRepository, AdministratorRepository>();
 builder.Services.AddScoped<IKeycloakService, KeycloakService>();
-builder.Services.AddTransient<IOperadorRepository, OperadorRepository>();
-builder.Services.AddTransient<IProveedorRepository, ProveedorRepository>();
-builder.Services.AddTransient<IConductorRepository, ConductorRepository>();
+builder.Services.AddTransient<IBidderRepository, BidderRepository>();
+builder.Services.AddTransient<ITechnicalSupportRepository, TechnicalSupportRepository>();
+builder.Services.AddTransient<IAuctioneerRepository, AuctioneerRepository>();
 
 //Registrandor servicios para enviar Email
 builder.Services.AddTransient<IEmailService, EmailService>();
 
 
-var dbConnectionString = builder.Configuration.GetValue<string>("DBConnectionString");
+var dbConnectionString = builder.Configuration.GetValue<string>("DefaultConnection");
 builder.Services.AddDbContext<UsersDbContext>(options =>
 options.UseSqlServer(dbConnectionString));
-
-
 
 // Configure Swagger to allow JWT token input
 builder.Services.AddEndpointsApiExplorer();

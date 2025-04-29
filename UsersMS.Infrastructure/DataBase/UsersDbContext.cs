@@ -15,25 +15,17 @@ namespace UsersMS.Infrastructure.DataBase
 {
     public class UsersDbContext : DbContext, IUsersDbContext
     {
-        public UsersDbContext(
-           DbContextOptions<UsersDbContext> options
-       )
-           : base(options) { }
+        public UsersDbContext(DbContextOptions<UsersDbContext> options) : base(options) { }
 
         public DbContext DbContext
         {
             get { return this; }
         }
 
-        //public virtual DbSet<User> Users { get; set; } = null!;
-
-        public virtual DbSet<Administrador> Administradores { get; set; } = null!;
-
-        public virtual DbSet<Proveedor> Proveedores { get; set; } = null!;
-
-        public virtual DbSet<Operador> Operadores { get; set; } = null!;
-
-        public virtual DbSet<Conductor> Conductores { get; set; } = null!;
+        public virtual DbSet<Administrator> Administrators { get; set; } = null!;
+        public virtual DbSet<TechnicalSupport> TechnicalSupports { get; set; } = null!;
+        public virtual DbSet<Bidder> Bidders { get; set; } = null!;
+        public virtual DbSet<Auctioneer> Auctioneers { get; set; } = null!;
 
 
         public IDbContextTransactionProxy BeginTransaction()
