@@ -12,85 +12,83 @@ namespace UsersMS.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Administradores",
+                name: "Administrators",
                 columns: table => new
                 {
-                    AdministradorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AdministratorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cedula = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rol = table.Column<int>(type: "int", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
-                    DepartamentoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Administradores", x => x.AdministradorId);
+                    table.PrimaryKey("PK_Administrators", x => x.AdministratorId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Conductores",
+                name: "Auctioneers",
                 columns: table => new
                 {
-                    ConductorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Licencia = table.Column<bool>(type: "bit", nullable: false),
-                    CertificadoSalud = table.Column<bool>(type: "bit", nullable: false),
-                    EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    GruaId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    AuctioneerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cedula = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rol = table.Column<int>(type: "int", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
-                    DepartamentoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Conductores", x => x.ConductorId);
+                    table.PrimaryKey("PK_Auctioneers", x => x.AuctioneerId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Operadores",
+                name: "Bidders",
                 columns: table => new
                 {
-                    OperadorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BidderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cedula = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rol = table.Column<int>(type: "int", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
-                    DepartamentoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Operadores", x => x.OperadorId);
+                    table.PrimaryKey("PK_Bidders", x => x.BidderId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Proveedores",
+                name: "TechnicalSupports",
                 columns: table => new
                 {
-                    ProveedorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmpresaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TechnicalSupportId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cedula = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rol = table.Column<int>(type: "int", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
-                    DepartamentoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Proveedores", x => x.ProveedorId);
+                    table.PrimaryKey("PK_TechnicalSupports", x => x.TechnicalSupportId);
                 });
         }
 
@@ -98,16 +96,16 @@ namespace UsersMS.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Administradores");
+                name: "Administrators");
 
             migrationBuilder.DropTable(
-                name: "Conductores");
+                name: "Auctioneers");
 
             migrationBuilder.DropTable(
-                name: "Operadores");
+                name: "Bidders");
 
             migrationBuilder.DropTable(
-                name: "Proveedores");
+                name: "TechnicalSupports");
         }
     }
 }

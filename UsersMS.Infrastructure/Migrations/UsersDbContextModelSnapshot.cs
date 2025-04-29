@@ -22,9 +22,9 @@ namespace UsersMS.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("UsersMS.Domain.Entities.Administrador", b =>
+            modelBuilder.Entity("UsersMS.Domain.Entities.Administrator", b =>
                 {
-                    b.Property<Guid>("AdministradorId")
+                    b.Property<Guid>("AdministratorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -32,20 +32,14 @@ namespace UsersMS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cedula")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("DepartamentoId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<Guid?>("EmpresaId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -55,20 +49,28 @@ namespace UsersMS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rol")
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
 
-                    b.HasKey("AdministradorId");
+                    b.HasKey("AdministratorId");
 
-                    b.ToTable("Administradores");
+                    b.ToTable("Administrators");
                 });
 
-            modelBuilder.Entity("UsersMS.Domain.Entities.Conductor", b =>
+            modelBuilder.Entity("UsersMS.Domain.Entities.Auctioneer", b =>
                 {
-                    b.Property<Guid>("ConductorId")
+                    b.Property<Guid>("AuctioneerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -76,29 +78,14 @@ namespace UsersMS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cedula")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("CertificadoSalud")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("DepartamentoId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<Guid?>("EmpresaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("GruaId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Licencia")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -108,20 +95,25 @@ namespace UsersMS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rol")
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.HasKey("AuctioneerId");
 
-                    b.HasKey("ConductorId");
-
-                    b.ToTable("Conductores");
+                    b.ToTable("Auctioneers");
                 });
 
-            modelBuilder.Entity("UsersMS.Domain.Entities.Operador", b =>
+            modelBuilder.Entity("UsersMS.Domain.Entities.Bidder", b =>
                 {
-                    b.Property<Guid>("OperadorId")
+                    b.Property<Guid>("BidderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -129,12 +121,9 @@ namespace UsersMS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cedula")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("DepartamentoId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -149,20 +138,25 @@ namespace UsersMS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rol")
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.HasKey("BidderId");
 
-                    b.HasKey("OperadorId");
-
-                    b.ToTable("Operadores");
+                    b.ToTable("Bidders");
                 });
 
-            modelBuilder.Entity("UsersMS.Domain.Entities.Proveedor", b =>
+            modelBuilder.Entity("UsersMS.Domain.Entities.TechnicalSupport", b =>
                 {
-                    b.Property<Guid>("ProveedorId")
+                    b.Property<Guid>("TechnicalSupportId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -170,20 +164,14 @@ namespace UsersMS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Cedula")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("DepartamentoId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<Guid>("EmpresaId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -193,15 +181,20 @@ namespace UsersMS.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rol")
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<int>("State")
-                        .HasColumnType("int");
+                    b.HasKey("TechnicalSupportId");
 
-                    b.HasKey("ProveedorId");
-
-                    b.ToTable("Proveedores");
+                    b.ToTable("TechnicalSupports");
                 });
 #pragma warning restore 612, 618
         }
