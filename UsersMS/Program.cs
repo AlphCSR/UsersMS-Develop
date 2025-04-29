@@ -14,65 +14,50 @@ using UsersMS.Infrastructure.Service;
 using UsersMS.Infrastructure.Setings;
 using System.Configuration;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Algo parecido a las variables goblales en el typescript 
 var _appSettings = new AppSettings();
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 _appSettings = appSettingsSection.Get<AppSettings>();
 builder.Services.Configure<AppSettings>(appSettingsSection);
 
-//Servicios para instancear los handlers
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true; // Ignorar mayúsculas y minúsculas
-        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter()); // Convertir enums automáticamente
-    });
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
 
+builder.Services.AddHttpClient();
 
-builder.Services.AddHttpClient(); // Registrar HttpClient para manejar solicitudes HTTP
-
-
-//Handlers Conductores
 builder.Services.AddMediatR(typeof(CreateAuctioneerCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetTechnicalSupportQueryHandler).Assembly);
 builder.Services.AddMediatR(typeof(DeleteAuctioneerCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(UpdateAuctioneerCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetAllBiddersQueryHandler).Assembly);
 
-//Handlers Proveedores
 builder.Services.AddMediatR(typeof(CreateTechnicalSupportCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetAuctioneersQueryHandler).Assembly);
 builder.Services.AddMediatR(typeof(DeleteTechnicalSupportCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(UpdateTechnicalSupportCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetAllTechnicalSupportsQueryHandler).Assembly);
 
-//Handlers Operadores
 builder.Services.AddMediatR(typeof(CreateBidderCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(DeleteBidderCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(UpdateBidderCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetBidderQueryHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetAllAuctioneersQueryHandler).Assembly);
 
-//Handlers Administradores
 builder.Services.AddMediatR(typeof(CreateAdministratorCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(DeleteAdministratorCommandHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetAdministratorQueryHandler).Assembly);
 builder.Services.AddMediatR(typeof(GetAllAdministratorsQueryHandler).Assembly);
 builder.Services.AddMediatR(typeof(UpdateAdministratorCommandHandler).Assembly);
 
-
-
-//Registrando los servicios de dbContext y repo para los usuarios
 builder.Services.AddTransient<IUsersDbContext, UsersDbContext>();
 builder.Services.AddTransient<IAdministratorRepository, AdministratorRepository>();
 builder.Services.AddScoped<IKeycloakService, KeycloakService>();
@@ -80,15 +65,12 @@ builder.Services.AddTransient<IBidderRepository, BidderRepository>();
 builder.Services.AddTransient<ITechnicalSupportRepository, TechnicalSupportRepository>();
 builder.Services.AddTransient<IAuctioneerRepository, AuctioneerRepository>();
 
-//Registrandor servicios para enviar Email
 builder.Services.AddTransient<IEmailService, EmailService>();
-
 
 var dbConnectionString = builder.Configuration.GetValue<string>("DefaultConnection");
 builder.Services.AddDbContext<UsersDbContext>(options =>
 options.UseSqlServer(dbConnectionString));
 
-// Configure Swagger to allow JWT token input
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -114,16 +96,14 @@ builder.Services.AddSwaggerGen(options =>
                 }
             },
             new string[] {}
-     }
-});
+        }
+    });
 });
 
-
-// JWT Authentication configuration
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(options =>
 {
@@ -143,14 +123,10 @@ options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     {
         OnTokenValidated = context =>
         {
-            // Obtener el token validado
             var claimsIdentity = context.Principal.Identity as ClaimsIdentity;
-
             if (claimsIdentity != null)
             {
-                // Extraer los roles desde "resource_access.publi-client.roles"
                 var resourceAccess = context.Principal.FindFirst("resource_access")?.Value;
-
                 if (!string.IsNullOrEmpty(resourceAccess))
                 {
                     var resourceAccessJson = System.Text.Json.JsonDocument.Parse(resourceAccess);
@@ -159,13 +135,11 @@ options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                     {
                         foreach (var role in rolesElement.EnumerateArray())
                         {
-                            // Agregar cada rol como un claim estándar
                             claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, role.GetString()));
                         }
                     }
                 }
             }
-
             return Task.CompletedTask;
         },
         OnAuthenticationFailed = context =>
@@ -178,7 +152,6 @@ options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -186,12 +159,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Enable authentication and authorization middleware
-app.UseAuthentication(); // This middleware will authenticate incoming requests
-app.UseAuthorization();  // This middleware will authorize incoming requests
-
+app.UseAuthentication(); 
+app.UseAuthorization();  
 app.MapControllers();
-
 app.Run();
 
